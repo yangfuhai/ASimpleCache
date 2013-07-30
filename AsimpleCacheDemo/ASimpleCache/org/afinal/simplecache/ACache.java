@@ -158,11 +158,11 @@ public class ACache {
 	// =======================================
 
 	public void put(String key, JSONObject value) {
-		put(value.toString(), key);
+		put(key,value.toString());
 	}
 
 	public void put(String key, JSONObject value, int saveTime) {
-		put(value.toString(), key, saveTime);
+		put(key,value.toString(), saveTime);
 	}
 
 	public JSONObject getAsJSONObject(String key) {
