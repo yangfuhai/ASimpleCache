@@ -39,7 +39,8 @@ ACache mCache = ACache.get(this);
 String value = mCache.getAsString("test_key1");
 ```
 
-#关于作者无为
+#关于作者michael
+* 屌丝程序员一枚，喜欢开源。
 * 个人博客：[http://www.yangfuhai.com](http://www.yangfuhai.com)
 * 交流QQ群 ： 192341294（已满） 246710918（未满）
 
