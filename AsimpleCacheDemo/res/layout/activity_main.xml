@@ -9,43 +9,55 @@
         android:id="@+id/textView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         android:text="@string/hello_world" />
 
     <Button
         android:id="@+id/btn_save_string"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:onClick="string"
         android:text="String Cache" />
 
     <Button
-        android:id="@+id/btn_save_json"
+        android:id="@+id/btn_save_jsonobject"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:enabled="false"
-        android:text="Json Cache" />
+        android:onClick="jsonobject"
+        android:text="JsonObject Cache" />
+
+    <Button
+        android:id="@+id/btn_save_jsonarray"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="jsonarray"
+        android:text="JsonArray Cache" />
 
     <Button
         android:id="@+id/btn_save_bitmap"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:enabled="false"
+        android:onClick="bitmap"
         android:text="Bitmap Cache" />
+
+    <Button
+        android:id="@+id/btn_save_drawable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="drawable"
+        android:text="Drawable Cache" />
 
     <Button
         android:id="@+id/btn_save_object"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button3"
-        android:enabled="false"
+        android:onClick="object"
         android:text="Object Cache" />
 
     <Button
         android:id="@+id/btn_about"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="about"
         android:text="btn_about" />
 
 </LinearLayout>

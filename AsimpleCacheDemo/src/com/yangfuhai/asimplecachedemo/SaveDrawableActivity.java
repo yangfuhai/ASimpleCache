@@ -2,35 +2,34 @@ package com.yangfuhai.asimplecachedemo;
 
 import org.afinal.simplecache.ACache;
 
-import android.app.Activity;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
+import android.app.Activity;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 
 /**
  * 
- * @ClassName: SaveBitmapActivity
- * @Description: 缓存bitmap
+ * @ClassName: SaveDrawableActivity
+ * @Description: 缓存drawable
  * @Author Yoson Hao
  * @WebSite www.haoyuexing.cn
  * @Email haoyuexing@gmail.com
- * @Date 2013-8-7 下午5:20:37
+ * @Date 2013-8-8 上午10:40:47
  * 
  */
-public class SaveBitmapActivity extends Activity {
+public class SaveDrawableActivity extends Activity {
 
-	private ImageView mIv_bitmap_res;
+	private ImageView mIv_drawable_res;
 
 	private ACache mCache;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_save_bitmap);
+		setContentView(R.layout.activity_save_drawable);
 		// 初始化控件
 		initView();
 
@@ -41,7 +40,7 @@ public class SaveBitmapActivity extends Activity {
 	 * 初始化控件
 	 */
 	private void initView() {
-		mIv_bitmap_res = (ImageView) findViewById(R.id.iv_bitmap_res);
+		mIv_drawable_res = (ImageView) findViewById(R.id.iv_drawable_res);
 	}
 
 	/**
@@ -51,8 +50,8 @@ public class SaveBitmapActivity extends Activity {
 	 */
 	public void save(View v) {
 		Resources res = getResources();
-		Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.img_test);
-		mCache.put("testBitmap", bitmap);
+		Drawable drawable = res.getDrawable(R.drawable.img_test);
+		mCache.put("testDrawable", drawable);
 	}
 
 	/**
@@ -61,14 +60,14 @@ public class SaveBitmapActivity extends Activity {
 	 * @param v
 	 */
 	public void read(View v) {
-		Bitmap testBitmap = mCache.getAsBitmap("testBitmap");
-		if (testBitmap == null) {
-			Toast.makeText(this, "Bitmap cache is null ...", Toast.LENGTH_SHORT)
-					.show();
-			mIv_bitmap_res.setImageBitmap(null);
+		Drawable testDrawable = mCache.getAsDrawable("testDrawable");
+		if (testDrawable == null) {
+			Toast.makeText(this, "Drawable cache is null ...",
+					Toast.LENGTH_SHORT).show();
+			mIv_drawable_res.setImageDrawable(null);
 			return;
 		}
-		mIv_bitmap_res.setImageBitmap(testBitmap);
+		mIv_drawable_res.setImageDrawable(testDrawable);
 	}
 
 	/**
@@ -77,6 +76,6 @@ public class SaveBitmapActivity extends Activity {
 	 * @param v
 	 */
 	public void clear(View v) {
-		mCache.remove("testBitmap");
+		mCache.remove("testDrawable");
 	}
 }
