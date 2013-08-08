@@ -1,50 +1,85 @@
 package com.yangfuhai.asimplecachedemo;
 
+import org.afinal.simplecache.ACache;
+
+import com.yangfuhai.asimplecachedemo.beans.UserBean;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
+/**
+ * 
+ * @ClassName: SaveObjectActivity
+ * @Description: 缓存jsonobject
+ * @Author Yoson Hao
+ * @WebSite www.haoyuexing.cn
+ * @Email haoyuexing@gmail.com
+ * @Date 2013-8-8 下午2:13:16
+ * 
+ */
 public class SaveObjectActivity extends Activity {
 
-	private Button btn_save_string;
-	private Button btn_save_json;
-	private Button btn_save_bitmap;
-	private Button btn_save_object;
-	
+	private TextView mTv_object_original, mTv_object_res;
+	private UserBean userBean;
+
+	private ACache mCache;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		
-		btn_save_string = (Button) findViewById(R.id.btn_save_string);
-		btn_save_json = (Button) findViewById(R.id.btn_save_json);
-		btn_save_bitmap = (Button) findViewById(R.id.btn_save_bitmap);
-		btn_save_object = (Button) findViewById(R.id.btn_save_object);
-		
-		btn_save_string.setOnClickListener(mListner);
-		btn_save_json.setOnClickListener(mListner);
-		btn_save_bitmap.setOnClickListener(mListner);
-		btn_save_object.setOnClickListener(mListner);
+		setContentView(R.layout.activity_save_object);
+		// 初始化控件
+		initView();
+
+		mCache = ACache.get(this);
+		userBean = new UserBean();
+		userBean.setAge("18");
+		userBean.setName("HaoYoucai");
+		mTv_object_original.setText(userBean.toString());
 	}
-	
-	
-	
-	private OnClickListener mListner = new OnClickListener() {
-		@Override
-		public void onClick(View v) {
-			if(v == btn_save_string){
-				
-			}else if(v == btn_save_json){
-				
-			}else if(v == btn_save_bitmap){
-				
-			}else if(v == btn_save_object){
-				
-			}
+
+	/**
+	 * 初始化控件
+	 */
+	private void initView() {
+		mTv_object_original = (TextView) findViewById(R.id.tv_object_original);
+		mTv_object_res = (TextView) findViewById(R.id.tv_object_res);
+	}
+
+	/**
+	 * 点击save事件
+	 * 
+	 * @param v
+	 */
+	public void save(View v) {
+		mCache.put("testObject", userBean);
+	}
+
+	/**
+	 * 点击read事件
+	 * 
+	 * @param v
+	 */
+	public void read(View v) {
+		UserBean testObject = (UserBean) mCache.getAsObject("testObject");
+		if (testObject == null) {
+			Toast.makeText(this, "Object cache is null ...", Toast.LENGTH_SHORT)
+					.show();
+			mTv_object_res.setText(null);
+			return;
 		}
-	};
+		mTv_object_res.setText(testObject.toString());
+	}
 
-
+	/**
+	 * 点击clear事件
+	 * 
+	 * @param v
+	 */
+	public void clear(View v) {
+		mCache.remove("testObject");
+	}
 }

@@ -2,18 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center|top"
     android:orientation="vertical"
     tools:context=".MainActivity" >
-
-    <EditText
-        android:id="@+id/et_string_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="input something ..." >
-
-        <requestFocus />
-    </EditText>
 
     <Button
         android:layout_width="match_parent"
@@ -31,11 +22,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="clear"
-        android:text="clear this String" />
+        android:text="clear this Drawable" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:contentDescription="@null"
+        android:src="@drawable/img_test" />
 
     <TextView
-        android:id="@+id/tv_string_res"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="1dp"
+        android:background="#E5E5E5" />
+
+    <ImageView
+        android:id="@+id/iv_drawable_res"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:contentDescription="@null" />
 
 </LinearLayout>

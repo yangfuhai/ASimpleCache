@@ -2,47 +2,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center|top"
     android:orientation="vertical"
     tools:context=".MainActivity" >
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="save"
+        android:text="save" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="read"
+        android:text="read" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="clear"
+        android:text="clear this Bitmap" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:contentDescription="@null"
+        android:src="@drawable/img_test" />
+
     <TextView
-        android:id="@+id/textView1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/hello_world" />
+        android:layout_height="1dp"
+        android:background="#E5E5E5" />
 
-    <Button
-        android:id="@+id/btn_save_string"
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/iv_bitmap_res"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/textView1"
-        android:text="String 数据缓存" />
-
-    <Button
-        android:id="@+id/btn_save_json"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button1"
-        android:layout_below="@+id/button1"
-        android:text="Json 数据缓存" />
-
-    <Button
-        android:id="@+id/btn_save_bitmap"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView1"
-        android:layout_alignLeft="@+id/button2"
-        android:text="Bitmap 数据缓存" />
-
-    <Button
-        android:id="@+id/btn_save_object"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button3"
-        android:layout_below="@+id/textView1"
-        android:text="Object数据缓存" />
+        android:layout_margin="5dp"
+        android:contentDescription="@null" />
 
 </LinearLayout>

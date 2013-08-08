@@ -2,18 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity" >
-
-    <EditText
-        android:id="@+id/et_string_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="input something ..." >
-
-        <requestFocus />
-    </EditText>
+    android:gravity="center|top"
+    android:orientation="vertical" >
 
     <Button
         android:layout_width="match_parent"
@@ -31,11 +21,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="clear"
-        android:text="clear this String" />
+        android:text="clear this JsonArray" />
 
     <TextView
-        android:id="@+id/tv_string_res"
+        android:id="@+id/tv_jsonarray_original"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp" />
+
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="1dp"
+        android:background="#E5E5E5" />
+
+    <TextView
+        android:id="@+id/tv_jsonarray_res"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp" />
 
 </LinearLayout>
