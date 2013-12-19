@@ -20,11 +20,13 @@ import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
@@ -339,12 +341,27 @@ public class ACache {
 
     /**
      * Cache for a stream
-     * @param key
-     * @return OutputStream - stream for writing data.
+     * @param key the file name.
+     * @return OutputStream  stream for writing data.
+     * @throws FileNotFoundException  if the file can not be created.
      */
     public OutputStream put(String key) throws FileNotFoundException {
         return new xFileOutputStream(mCache.newFile(key));
     }
+
+    /**
+     *
+     * @param key the file name.
+     * @return (InputStream or null)  stream previously saved in cache.
+     * @throws FileNotFoundException  if the file can not be opened
+     */
+    public InputStream get(String key) throws FileNotFoundException {
+        File file = mCache.get(key);
+        if (!file.exists())
+            return null;
+        return new FileInputStream(file);
+    }
+
 	/**
 	 * 保存 byte数据 到 缓存中
 	 * 
