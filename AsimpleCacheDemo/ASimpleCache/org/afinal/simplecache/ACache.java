@@ -20,12 +20,14 @@ import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import java.io.Serializable;
 import java.util.Collections;
@@ -97,6 +99,33 @@ public class ACache {
 		mCache = new ACacheManager(cacheDir, max_size, max_count);
 	}
 
+    /**
+     * Provides a means to save a cached file before the data are available.
+     * Since writing about the file is complete, and its close method is called,
+     * its contents will be registered in the cache.
+     * Example of use:
+     *
+     * ACache cache = new ACache(this)
+     * try {
+     *   OutputStream stream = cache.put("myFileName")
+     *   stream.write("some bytes".getBytes());
+     *   // now update cache!
+     *   stream.close();
+     * } catch(FileNotFoundException e){
+     *   e.printStackTrace()
+     * }
+     */
+    class xFileOutputStream extends FileOutputStream {
+        File file;
+        public xFileOutputStream(File file) throws FileNotFoundException {
+            super(file);
+            this.file = file;
+        }
+        public void close() throws IOException {
+            super.close();
+            mCache.put(file);
+        }
+    }
 	// =======================================
 	// ============ String数据 读写 ==============
 	// =======================================
@@ -308,6 +337,14 @@ public class ACache {
 		}
 	}
 
+    /**
+     * Cache for a stream
+     * @param key
+     * @return OutputStream - stream for writing data.
+     */
+    public OutputStream put(String key) throws FileNotFoundException {
+        return new xFileOutputStream(mCache.newFile(key));
+    }
 	/**
 	 * 保存 byte数据 到 缓存中
 	 * 
