@@ -8,7 +8,7 @@ ASimpleCache
 
 ---
 ## 1、它可以缓存什么东西？
-普通的字符串、json、序列化的java对象，和 byte数据。
+普通的字符串、JsonObject、JsonArray、Bitmap、Drawable、序列化的java对象，和 byte数据。
 
 
 ## 2、它有什么特色？
@@ -38,6 +38,8 @@ mCache.put("test_key3", "test value", 2 * ACache.TIME_DAY);//保存两天，如�
 ACache mCache = ACache.get(this);
 String value = mCache.getAsString("test_key1");
 ```
+
+更多示例请见Demo
 
 #关于作者michael
 * 屌丝程序员一枚，喜欢开源。
