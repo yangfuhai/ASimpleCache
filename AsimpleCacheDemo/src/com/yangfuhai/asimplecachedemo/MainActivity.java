@@ -39,6 +39,10 @@ public class MainActivity extends Activity {
 		startActivity(new Intent().setClass(this, SaveBitmapActivity.class));
 	}
 
+    public void media(View v) {
+        startActivity(new Intent().setClass(this, SaveMediaActivity.class));
+    }
+
 	public void drawable(View v) {
 		startActivity(new Intent().setClass(this, SaveDrawableActivity.class));
 	}

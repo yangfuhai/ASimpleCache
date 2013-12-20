@@ -4,6 +4,8 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+
     <uses-sdk
         android:minSdkVersion="3"
         android:targetSdkVersion="16" />
@@ -27,6 +29,7 @@
         <activity android:name="com.yangfuhai.asimplecachedemo.SaveJsonObjectActivity" />
         <activity android:name="com.yangfuhai.asimplecachedemo.SaveObjectActivity" />
         <activity android:name="com.yangfuhai.asimplecachedemo.SaveStringActivity" />
+        <activity android:name="com.yangfuhai.asimplecachedemo.SaveMediaActivity" />
         <activity
             android:name="com.yangfuhai.asimplecachedemo.SaveDrawableActivity"
             android:label="@string/title_activity_save_drawable" >
