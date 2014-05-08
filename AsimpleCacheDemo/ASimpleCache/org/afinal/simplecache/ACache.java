@@ -95,39 +95,35 @@ public class ACache {
 
 	private ACache(File cacheDir, long max_size, int max_count) {
 		if (!cacheDir.exists() && !cacheDir.mkdirs()) {
-			throw new RuntimeException("can't make dirs in "
-					+ cacheDir.getAbsolutePath());
+			throw new RuntimeException("can't make dirs in " + cacheDir.getAbsolutePath());
 		}
 		mCache = new ACacheManager(cacheDir, max_size, max_count);
 	}
 
-    /**
-     * Provides a means to save a cached file before the data are available.
-     * Since writing about the file is complete, and its close method is called,
-     * its contents will be registered in the cache.
-     * Example of use:
-     *
-     * ACache cache = new ACache(this)
-     * try {
-     *   OutputStream stream = cache.put("myFileName")
-     *   stream.write("some bytes".getBytes());
-     *   // now update cache!
-     *   stream.close();
-     * } catch(FileNotFoundException e){
-     *   e.printStackTrace()
-     * }
-     */
-    class xFileOutputStream extends FileOutputStream {
-        File file;
-        public xFileOutputStream(File file) throws FileNotFoundException {
-            super(file);
-            this.file = file;
-        }
-        public void close() throws IOException {
-            super.close();
-            mCache.put(file);
-        }
-    }
+	/**
+	 * Provides a means to save a cached file before the data are available.
+	 * Since writing about the file is complete, and its close method is called,
+	 * its contents will be registered in the cache. Example of use:
+	 * 
+	 * ACache cache = new ACache(this) try { OutputStream stream =
+	 * cache.put("myFileName") stream.write("some bytes".getBytes()); // now
+	 * update cache! stream.close(); } catch(FileNotFoundException e){
+	 * e.printStackTrace() }
+	 */
+	class xFileOutputStream extends FileOutputStream {
+		File file;
+
+		public xFileOutputStream(File file) throws FileNotFoundException {
+			super(file);
+			this.file = file;
+		}
+
+		public void close() throws IOException {
+			super.close();
+			mCache.put(file);
+		}
+	}
+
 	// =======================================
 	// ============ String数据 读写 ==============
 	// =======================================
@@ -339,28 +335,33 @@ public class ACache {
 		}
 	}
 
-    /**
-     * Cache for a stream
-     * @param key the file name.
-     * @return OutputStream  stream for writing data.
-     * @throws FileNotFoundException  if the file can not be created.
-     */
-    public OutputStream put(String key) throws FileNotFoundException {
-        return new xFileOutputStream(mCache.newFile(key));
-    }
+	/**
+	 * Cache for a stream
+	 * 
+	 * @param key
+	 *            the file name.
+	 * @return OutputStream stream for writing data.
+	 * @throws FileNotFoundException
+	 *             if the file can not be created.
+	 */
+	public OutputStream put(String key) throws FileNotFoundException {
+		return new xFileOutputStream(mCache.newFile(key));
+	}
 
-    /**
-     *
-     * @param key the file name.
-     * @return (InputStream or null)  stream previously saved in cache.
-     * @throws FileNotFoundException  if the file can not be opened
-     */
-    public InputStream get(String key) throws FileNotFoundException {
-        File file = mCache.get(key);
-        if (!file.exists())
-            return null;
-        return new FileInputStream(file);
-    }
+	/**
+	 * 
+	 * @param key
+	 *            the file name.
+	 * @return (InputStream or null) stream previously saved in cache.
+	 * @throws FileNotFoundException
+	 *             if the file can not be opened
+	 */
+	public InputStream get(String key) throws FileNotFoundException {
+		File file = mCache.get(key);
+		if (!file.exists())
+			return null;
+		return new FileInputStream(file);
+	}
 
 	/**
 	 * 保存 byte数据 到 缓存中
@@ -624,8 +625,7 @@ public class ACache {
 		private final AtomicInteger cacheCount;
 		private final long sizeLimit;
 		private final int countLimit;
-		private final Map<File, Long> lastUsageDates = Collections
-				.synchronizedMap(new HashMap<File, Long>());
+		private final Map<File, Long> lastUsageDates = Collections.synchronizedMap(new HashMap<File, Long>());
 		protected File cacheDir;
 
 		private ACacheManager(File cacheDir, long sizeLimit, int countLimit) {
@@ -651,8 +651,7 @@ public class ACache {
 						for (File cachedFile : cachedFiles) {
 							size += calculateSize(cachedFile);
 							count += 1;
-							lastUsageDates.put(cachedFile,
-									cachedFile.lastModified());
+							lastUsageDates.put(cachedFile, cachedFile.lastModified());
 						}
 						cacheSize.set(size);
 						cacheCount.set(count);
@@ -781,8 +780,7 @@ public class ACache {
 			if (strs != null && strs.length == 2) {
 				String saveTimeStr = strs[0];
 				while (saveTimeStr.startsWith("0")) {
-					saveTimeStr = saveTimeStr
-							.substring(1, saveTimeStr.length());
+					saveTimeStr = saveTimeStr.substring(1, saveTimeStr.length());
 				}
 				long saveTime = Long.valueOf(saveTimeStr);
 				long deleteAfter = Long.valueOf(strs[1]);
@@ -807,30 +805,26 @@ public class ACache {
 
 		private static String clearDateInfo(String strInfo) {
 			if (strInfo != null && hasDateInfo(strInfo.getBytes())) {
-				strInfo = strInfo.substring(strInfo.indexOf(mSeparator) + 1,
-						strInfo.length());
+				strInfo = strInfo.substring(strInfo.indexOf(mSeparator) + 1, strInfo.length());
 			}
 			return strInfo;
 		}
 
 		private static byte[] clearDateInfo(byte[] data) {
 			if (hasDateInfo(data)) {
-				return copyOfRange(data, indexOf(data, mSeparator) + 1,
-						data.length);
+				return copyOfRange(data, indexOf(data, mSeparator) + 1, data.length);
 			}
 			return data;
 		}
 
 		private static boolean hasDateInfo(byte[] data) {
-			return data != null && data.length > 15 && data[13] == '-'
-					&& indexOf(data, mSeparator) > 14;
+			return data != null && data.length > 15 && data[13] == '-' && indexOf(data, mSeparator) > 14;
 		}
 
 		private static String[] getDateInfoFromDate(byte[] data) {
 			if (hasDateInfo(data)) {
 				String saveDate = new String(copyOfRange(data, 0, 13));
-				String deleteAfter = new String(copyOfRange(data, 14,
-						indexOf(data, mSeparator)));
+				String deleteAfter = new String(copyOfRange(data, 14, indexOf(data, mSeparator)));
 				return new String[] { saveDate, deleteAfter };
 			}
 			return null;
@@ -850,8 +844,7 @@ public class ACache {
 			if (newLength < 0)
 				throw new IllegalArgumentException(from + " > " + to);
 			byte[] copy = new byte[newLength];
-			System.arraycopy(original, from, copy, 0,
-					Math.min(original.length - from, newLength));
+			System.arraycopy(original, from, copy, 0, Math.min(original.length - from, newLength));
 			return copy;
 		}
 
@@ -898,8 +891,7 @@ public class ACache {
 			int w = drawable.getIntrinsicWidth();
 			int h = drawable.getIntrinsicHeight();
 			// 取 drawable 的颜色格式
-			Bitmap.Config config = drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
-					: Bitmap.Config.RGB_565;
+			Bitmap.Config config = drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565;
 			// 建立对应 bitmap
 			Bitmap bitmap = Bitmap.createBitmap(w, h, config);
 			// 建立对应 bitmap 的画布
@@ -918,6 +910,8 @@ public class ACache {
 			if (bm == null) {
 				return null;
 			}
+			BitmapDrawable bd=new BitmapDrawable(bm);
+			bd.setTargetDensity(bm.getDensity());
 			return new BitmapDrawable(bm);
 		}
 	}
